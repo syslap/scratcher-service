@@ -1,0 +1,68 @@
+{
+  "name": "Scratcher Aggregator",
+  "description": "External service to aggregate Salesforce scratch org changes across multiple orgs",
+  "repository": "https://github.com/your-repo/scratcher",
+  "logo": "https://node-js-sample.herokuapp.com/node.svg",
+  "keywords": ["node", "express", "salesforce", "devhub", "scratch-org"],
+  "image": "heroku/nodejs",
+  "addons": [
+    {
+      "plan": "heroku-postgresql:mini",
+      "as": "DATABASE"
+    }
+  ],
+  "env": {
+    "SF_LOGIN_URL": {
+      "description": "Salesforce login URL",
+      "value": "https://login.salesforce.com",
+      "required": true
+    },
+    "SF_USERNAME": {
+      "description": "Your Salesforce DevHub username",
+      "required": true
+    },
+    "SF_PASSWORD": {
+      "description": "Your Salesforce DevHub password",
+      "required": true
+    },
+    "SF_SECURITY_TOKEN": {
+      "description": "Your Salesforce security token",
+      "required": true
+    },
+    "API_KEY": {
+      "description": "API key for authenticating requests from Salesforce (generate a random string)",
+      "generator": "secret",
+      "required": true
+    },
+    "CORS_ORIGIN": {
+      "description": "Your Salesforce org URL (e.g., https://your-org.my.salesforce.com)",
+      "required": true
+    },
+    "POLL_INTERVAL_MINUTES": {
+      "description": "How often to poll scratch orgs (in minutes)",
+      "value": "5",
+      "required": false
+    },
+    "MAX_CHANGES_PER_ORG": {
+      "description": "Maximum number of changes to fetch per org",
+      "value": "50",
+      "required": false
+    },
+    "NODE_ENV": {
+      "description": "Node environment",
+      "value": "production",
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "eco"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}

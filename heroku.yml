@@ -1,0 +1,10 @@
+build:
+  languages:
+    - nodejs
+
+run:
+  web: node server.js
+
+release:
+  command:
+    - node scripts/setup-database.js

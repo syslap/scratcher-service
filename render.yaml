@@ -1,0 +1,36 @@
+services:
+  - type: web
+    name: scratcher-aggregator
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SF_LOGIN_URL
+        value: https://login.salesforce.com
+      - key: SF_USERNAME
+        sync: false
+      - key: SF_PASSWORD
+        sync: false
+      - key: SF_SECURITY_TOKEN
+        sync: false
+      - key: API_KEY
+        generateValue: true
+      - key: CORS_ORIGIN
+        sync: false
+      - key: POLL_INTERVAL_MINUTES
+        value: 5
+      - key: MAX_CHANGES_PER_ORG
+        value: 50
+      - key: DATABASE_URL
+        fromDatabase:
+          name: scratcher-db
+          property: connectionString
+
+databases:
+  - name: scratcher-db
+    plan: free
+    databaseName: scratcher
+    user: scratcher
